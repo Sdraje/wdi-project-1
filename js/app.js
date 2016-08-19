@@ -46,7 +46,7 @@ var game = game || {};
 $(document).ready(init);
 
 function init(){
-  $pop                = $('body').on('click', 'div', popBubble);
+  $pop                = $('body').on('click', '.a', popBubble);
   game.$DivA          = $('.a');
   $main               = $('main');
   game.score          = 0;
@@ -69,7 +69,7 @@ function init(){
     $newDiv.html($newDiv.attr('value'))
     // $pop        = game.$DivA.on('click', popBubble);
     
-    // $.each(game.$DivA, animateDivA);
+    $.each(game.$DivA, animateDivA);
   }, 1000);
 };
 
