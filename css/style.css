@@ -1,3 +1,23 @@
+div.a {
+width: 50px;
+height:50px;
+ background-color:white;
+ border: 1px solid black;
+position:absolute;
+    border-radius: 50px;
+}
+
+div.b {
+width: 50px;
+height:50px;
+ background-color:white;
+ border: 1px solid black;
+position:fixed;
+    border-radius: 50px;
+}
+
 body {
-  background-color: green;
+    width: 500px;
+    height: 500px;
+    background-color: #00F0FF;
 }
