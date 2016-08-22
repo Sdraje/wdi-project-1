@@ -36,8 +36,11 @@ function init(){
   $main               = $('main');
   game.score          = 0;
   game.lives          = 10;
+  game.seconds        = 30;
   $('#score').html("SCORE " + game.score)
-  $('#lives').html('LIVES ' + game.lives)
+  $('#lives').html('seconds left  ' + game.seconds)
+  // $('#lives').html('LIVES ' + game.lives)
+
   game.interval();
 };
 
@@ -71,7 +74,7 @@ game.popBubble = function popBubble () {
     bubblePop.play();
     $(array).remove()
     // game.$bubbles.splice(i, 1) --- need to remove bubbles from array (loop still counts them)
-    game.livesCheck();
+    // game.livesCheck();
     return;
   };
 
@@ -118,13 +121,20 @@ game.livesCheck = function livesCheck () {
   if (game.lives === 0) {game.over()}
 }
 
+game.countdown = setInterval(function(){
+    game.seconds--
+    $('#lives').html('seconds left ' + game.seconds)
+    if (game.seconds <= 0) {game.over();}
+  }, 1000)
+
 game.over = function () {
   var person = prompt ('Game over! Please enter your name:')
   $('#high-scores').append('<li>' + person + " " + game.score + '</li>')
   $('main').empty();
   // game.$bubbles.empty(); -------------------------- preventing new bubbles from being created
   game.score          = 0;
-  game.lives          = 10;
+  game.seconds          = 30;
   $('#score').html("SCORE " + game.score)
-  $('#lives').html('LIVES ' + game.lives)
+  $('#lives').html('seconds left ' + game.seconds)
+
 }

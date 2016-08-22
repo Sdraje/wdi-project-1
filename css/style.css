@@ -16,7 +16,7 @@ main {
   margin: 0 auto;
   width: 900px;
   height: 500px;
-  background-color: #00F0FF;
+  background-image: url("../images/sodaBubbles.gif");
   position: relative;
   cursor: pointer;
 }
