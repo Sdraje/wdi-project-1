@@ -7,10 +7,9 @@ function init(){
   game.$bubbles       = $('.bubbles');
   $main               = $('main');
   game.score          = 0;
-  game.lives          = 10;
   game.seconds        = 30;
   $('#score').html("SCORE " + game.score)
-  $('#lives').html('seconds left  ' + game.seconds)
+  $('#timer').html(game.seconds + ' SECONDS LEFT ')
   game.swanLake();
   game.interval();
 };
@@ -85,15 +84,9 @@ game.createBubble = function (){
   $newBubble.html($newBubble.attr('value'))
 }
 
-game.livesCheck = function livesCheck () {
-  game.lives--
-  $('#lives').html('LIVES ' + game.lives)
-  if (game.lives === 0) {game.over()}
-}
-
 game.countdown = setInterval(function(){
   game.seconds--
-  $('#lives').html('seconds left ' + game.seconds)
+  $('#timer').html(game.seconds + ' SECONDS LEFT')
   if (game.seconds <= 0) {game.over();}
 }, 1000)
 
@@ -101,11 +94,10 @@ game.over = function () {
   var person = prompt ('Game over! Please enter your name:')
   $('#high-scores').append('<li>' + person + " " + game.score + '</li>')
   $('main').empty();
-  // game.$bubbles.empty(); -------------------------- preventing new bubbles from being created
   game.score          = 0;
   game.seconds        = 30;
   $('#score').html("SCORE " + game.score)
-  $('#lives').html('seconds left ' + game.seconds)
+  $('#timer').html(game.seconds + ' SECONDS LEFT')
 
 }
 
