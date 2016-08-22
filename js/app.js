@@ -1,34 +1,6 @@
-// startGame
-// Bubble constructor
-// new Bubble(x, y, timer)
-
-// pickRandomPlaceOnScreen
-
-// createBubble
-
-// animateBubble
-
-// clickOnBubble
-
-// popBubble
-
-// increaseScore
-
-// decreaseTimer
-
-// decreaseBubbleTimer
-
-// decreaseLives
-
-// gameOver
-
 var game = game || {};
 
 $(document).ready(init);
-
-game.newGame = function newGame(){
-
-}
 
 function init(){
   game.$pop           = $('body').on('click', '.bubbles', game.popBubble);
@@ -39,18 +11,17 @@ function init(){
   game.seconds        = 30;
   $('#score').html("SCORE " + game.score)
   $('#lives').html('seconds left  ' + game.seconds)
-  // $('#lives').html('LIVES ' + game.lives)
-
+  game.swanLake();
   game.interval();
 };
 
 game.interval = function interval (){
   setInterval(function(){
-    if (game.$bubbles.length > 9) {return}
+    if (game.$bubbles.length > 14) return;
     game.createBubble();
     game.$bubbles  = $('.bubbles');
     $.each(game.$bubbles, game.animateBubble);
-  }, 1000);
+  }, 500);
 };
 
 // Explode bubble
@@ -74,7 +45,6 @@ game.popBubble = function popBubble () {
     bubblePop.play();
     $(array).remove()
     // game.$bubbles.splice(i, 1) --- need to remove bubbles from array (loop still counts them)
-    // game.livesCheck();
     return;
   };
 
@@ -122,10 +92,10 @@ game.livesCheck = function livesCheck () {
 }
 
 game.countdown = setInterval(function(){
-    game.seconds--
-    $('#lives').html('seconds left ' + game.seconds)
-    if (game.seconds <= 0) {game.over();}
-  }, 1000)
+  game.seconds--
+  $('#lives').html('seconds left ' + game.seconds)
+  if (game.seconds <= 0) {game.over();}
+}, 1000)
 
 game.over = function () {
   var person = prompt ('Game over! Please enter your name:')
@@ -133,8 +103,17 @@ game.over = function () {
   $('main').empty();
   // game.$bubbles.empty(); -------------------------- preventing new bubbles from being created
   game.score          = 0;
-  game.seconds          = 30;
+  game.seconds        = 30;
   $('#score').html("SCORE " + game.score)
   $('#lives').html('seconds left ' + game.seconds)
 
+}
+
+game.swanLake = function swanLake(){
+  var swanLake = new Audio ("sounds/swanLake.mp3");
+  swanLake.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+  }, false);
+  swanLake.play();
 }
