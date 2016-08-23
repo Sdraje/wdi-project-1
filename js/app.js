@@ -6,31 +6,56 @@ function init(){
   game.$pause         = $('#timer').on('click', game.pause);
   game.$pop           = $('body').on('click', '.bubbles', game.popBubble);
   game.$bubbles       = $('.bubbles');
-  $main               = $('main');
-  game.score          = 0;
-  game.seconds        = 30;
-  $('#score').html("SCORE " + game.score)
-  $('#timer').html(game.seconds + ' SECONDS LEFT')
+  game.$main          = $('main');
+  game.$score         = $("#score");
+  game.$timer         = $("#timer");
+  game.defaultSeconds = 5;
+  game.startScore     = 0;
+
   // game.rideOfTheValkyries();
   game.swanLake();
-  game.instructions();
   game.openCan();
-  game.interval();
+  game.createModal("startModal");
+  game.setupModalEvents();
 };
 
-game.interval = function interval (){
-  setInterval(function(){
-    if (game.$bubbles.length > 14) return;
+game.createModal = function startModal(id){
+  var modal = $('[data-remodal-id='+id+']').remodal();
+  modal.open();
+}
+
+game.setupModalEvents = function setupModalEvent(){
+  $(document).on('confirmation', '.remodal', function () {
+    game.startCountdown();
+    game.startMakingBubbles();
+  });
+}
+
+game.startMakingBubbles = function startMakingBubbles(){
+  game.score = game.startScore;
+  game.$score.html("SCORE " + game.score)
+
+  game.bubbleInterval = setInterval(function(){
+    if (game.over)
+
+    game.$bubbles = $('.bubbles');
+    if (game.$bubbles.length > 4) return;
+    
     game.createBubble();
-    game.$bubbles  = $('.bubbles');
     $.each(game.$bubbles, game.animateBubble);
   }, 500);
 };
 
+game.stopMakingBubbles = function startMakingBubbles(){
+  game.$bubbles       = [];
+  game.bubbleInterval = clearInterval(game.bubbleInterval);
+}
+
 // Explode bubble
 game.popBubble = function popBubble () {
-  game.score += parseInt($(this).attr('value'))
-  $('#score').html("SCORE " + game.score)
+  game.score += parseInt($(this).attr('value'));
+  game.$score.html("SCORE " + game.score);
+
   var bubblePop = new Audio("sounds/bubblePop.mp3");
   bubblePop.play();
   $(this).remove();
@@ -39,32 +64,33 @@ game.popBubble = function popBubble () {
 /*
  * Animating the movement of the div
  */
- game.animateBubble = function animateBubble(i, array){
-  $(array).attr('value', $(array).attr('value')-1);
-  $(array).html($(array).attr('value'));
+game.animateBubble = function animateBubble(i, bubble){
+  $(bubble).attr('value', $(bubble).attr('value')-1);
+  $(bubble).html($(bubble).attr('value'));
 
-  if ($(array).attr('value') <= 0){
+  if ($(bubble).attr('value') <= 0){
     var bubblePop = new Audio("sounds/bubblePop.mp3");
     bubblePop.play();
-    $(array).remove()
-    // game.$bubbles.splice(i, 1) --- need to remove bubbles from array (loop still counts them)
+    $(bubble).remove();
     return;
   };
 
   var newq = game.makeNewPosition();
-  var oldq = $(array).offset();
+  var oldq = $(bubble).offset();
   var speed = game.calcSpeed([oldq.top, oldq.left], newq);
-  $(array).animate({ top: newq[0], left: newq[1] }, speed, function(){
-    game.animateBubble(i, array);        
+  
+  $(bubble).animate({ top: newq[0], left: newq[1] }, speed, function(){
+    if (game.$bubbles.length === 0) return;  
+    game.animateBubble(i, bubble);
   });
 };
 
 /*
  * Create a new start position to place a bubble
  */
- game.makeNewPosition = function makeNewPosition(){
-  var h  = $('main').height() - 50;
-  var w  = $('main').width() - 50;
+game.makeNewPosition = function makeNewPosition(){
+  var h  = game.$main.height() - 50;
+  var w  = game.$main.width() - 50;
   var nh = Math.floor(Math.random() * h);
   var nw = Math.floor(Math.random() * w);
   
@@ -78,31 +104,37 @@ game.calcSpeed = function calcSpeed(prev, next) {
   var speedModifier = 0.1;
   var speed         = Math.ceil(greatest/speedModifier);
   return speed;
-
 }
 
 game.createBubble = function (){
   var newPosition = game.makeNewPosition();
   $newBubble      = $('<button />', {"class": 'bubbles', 'value': 11});
-  $newBubble.css({'top':newPosition[0]+'px', 'left':newPosition[1]+'px'}).appendTo($('main'));
+  $newBubble.css({'top':newPosition[0]+'px', 'left':newPosition[1]+'px'}).appendTo(game.$main);
   $newBubble.html($newBubble.attr('value'))
 }
 
-game.countdown = setInterval(function(){
-  game.seconds--
-  $('#timer').html(game.seconds + ' SECONDS LEFT')
-  if (game.seconds <= 0) {game.over();}
-}, 1000)
+game.startCountdown = function(){
+  game.seconds = game.defaultSeconds;
+  game.$timer.html(game.seconds + ' SECONDS LEFT')
+
+  game.countdown = setInterval(function(){
+    game.seconds--
+    game.$timer.html(game.seconds + ' SECONDS LEFT')
+    if (game.seconds <= 0) return game.over();
+  }, 1000)
+}
+
+game.clearCountdown = function(){
+  game.countdown = clearInterval(game.countdown);
+}
 
 game.over = function () {
-  var person = prompt ('Game over! Please enter your name:')
-  $('#high-scores').append('<li>' + person + " " + game.score + '</li>')
-  $('main').empty();
-  game.score          = 0;
-  game.seconds        = 30;
-  $('#score').html("SCORE " + game.score)
-  $('#timer').html(game.seconds + ' SECONDS LEFT')
-
+  game.clearCountdown();
+  game.stopMakingBubbles();
+  game.$main.empty();
+  game.createModal("endModal");
+  // var person = prompt ('Game over! Please enter your name:')
+  // $('#high-scores').append('<li>' + person + " " + game.score + '</li>')
 }
 
 game.swanLake = function swanLake(){
@@ -132,6 +164,6 @@ game.pause = function pause(){
   alert('Paused!');
 }
 
-game.instructions = function instructions(){
-  alert('Welcome to "Pop me all over", a game in which you have to... Well, pop bubbles! The rules are simple: pop as many bubbles as you can in 30 seconds and get listed in the high-scores section! The numbers in the bubbles are the seconds left for them to automatically pop and they are also the points you get for popping them! Pause the game clicking on the timer, if you need!')
-}
+// game.instructions = function instructions(){
+//   alert('Welcome to "Pop me all over", a game in which you have to... Well, pop bubbles! The rules are simple: pop as many bubbles as you can in 30 seconds and get listed in the high-scores section! The numbers in the bubbles are the seconds left for them to automatically pop and they are also the points you get for popping them! Pause the game clicking on the timer, if you need!')
+// }
