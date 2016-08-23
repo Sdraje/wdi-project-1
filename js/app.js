@@ -3,14 +3,18 @@ var game = game || {};
 $(document).ready(init);
 
 function init(){
+  game.$pause         = $('#timer').on('click', game.pause);
   game.$pop           = $('body').on('click', '.bubbles', game.popBubble);
   game.$bubbles       = $('.bubbles');
   $main               = $('main');
   game.score          = 0;
   game.seconds        = 30;
   $('#score').html("SCORE " + game.score)
-  $('#timer').html(game.seconds + ' SECONDS LEFT ')
+  $('#timer').html(game.seconds + ' SECONDS LEFT')
+  // game.rideOfTheValkyries();
   game.swanLake();
+  game.instructions();
+  game.openCan();
   game.interval();
 };
 
@@ -108,4 +112,26 @@ game.swanLake = function swanLake(){
     this.play();
   }, false);
   swanLake.play();
+}
+
+game.rideOfTheValkyries = function rideOfTheValkyries(){
+  var rideOfTheValkyries = new Audio ('sounds/rideOfTheValkyries.mp3');
+  rideOfTheValkyries.addEventListener('ended', function(){
+    this.currentTime = 0;
+    this.play();
+  }, false);
+  rideOfTheValkyries.play();
+}
+
+game.openCan = function openCan(){
+  var canOpen = new Audio ("sounds/canOpen.mp3");
+  canOpen.play();
+}
+
+game.pause = function pause(){
+  alert('Paused!');
+}
+
+game.instructions = function instructions(){
+  alert('Welcome to "Pop me all over", a game in which you have to... Well, pop bubbles! The rules are simple: pop as many bubbles as you can in 30 seconds and get listed in the high-scores section! The numbers in the bubbles are the seconds left for them to automatically pop and they are also the points you get for popping them! Pause the game clicking on the timer, if you need!')
 }

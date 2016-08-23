@@ -1,8 +1,17 @@
+* {
+  cursor: pointer;
+}
+
 body {
   font-family: 'Averia Sans Libre', bold;
   background-image: url("../images/sodaBubbles.gif");
   background-size: cover;
   background-repeat: no-repeat;
+  text-shadow: 
+  -1px -1px 0 #D27392,
+  1px -1px 0 #D27392,
+  -1px 1px 0 #D27392,
+  1px 1px 0 #D27392;  
 }
 
 header {
@@ -18,9 +27,8 @@ p {
 main {
   margin: 0 auto;
   width: 900px;
-  height: 500px;
+  height: 450px;
   position: relative;
-  cursor: pointer;
 }
 
 footer {
@@ -37,7 +45,6 @@ button.bubbles {
   position: absolute;
   border-radius: 50px;
   text-align: center;
-  cursor: pointer;
 }
 
 #timer {
@@ -45,7 +52,6 @@ button.bubbles {
   z-index: 10;
   float: right;
   margin-right: 20px;
-  display: inline-block;
   position: relative;
 }
 
@@ -53,17 +59,15 @@ button.bubbles {
   z-index: 10;
   float: left;
   margin-left: 20px;
-  display: inline-block;
 }
 
 body.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none;   /* Chrome/Safari/Opera */
-  -khtml-user-select: none;    /* Konqueror */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* Internet Explorer/Edge */
-  user-select: none;           /* Non-prefixed version, currently
-                                  not supported by any browser */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 button:focus {outline:0;}
