@@ -3,6 +3,7 @@
 <head>
   <title>Pop me baby!</title>
   <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/animate.css">
   <link rel="stylesheet" type="text/css" href="css/remodal.css">
   <link rel="stylesheet" type="text/css" href="css/remodal-default-theme.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -26,12 +27,13 @@
     </main>
     <footer>
       <h2 id="score"></h2>
+      <p id="alfredo">Created with &hearts; by Alfredo Maria Milano</p>
     </footer>
     
     <div class="remodal" data-remodal-id="startModal">
       <h1>Pop me all over</h1>
       <p>
-        Pop all the bubbles as quick as you can... or some other description...
+        Welcome to "Pop me all over", a game in which you have to... Well, pop bubbles! The rules are simple: pop as many bubbles as you can in 30 seconds and get listed in the high-scores section! The numbers in the bubbles are the seconds left for them to automatically pop and they are also the points you get for popping them! Pause the game clicking on the timer, if you need!
       </p>
       <br>
       <button data-remodal-action="confirm" class="remodal-confirm">Play</button>
@@ -40,10 +42,11 @@
     <div class="remodal" data-remodal-id="endModal">
       <h1>Game over</h1>
       <p>
-        Pop all the bubbles as quick as you can... or some other description...
+        Insert your name here:
       </p>
+      <textarea id="newHighScore" data-remodal-action="confirm"></textarea>
       <br>
-      <button data-remodal-action="confirm" class="remodal-confirm">Play</button>
+      <button data-remodal-action="confirm" class="remodal-confirm">Retry</button>
     </div>
   </div>
 </body>

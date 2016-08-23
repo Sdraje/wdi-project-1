@@ -3,14 +3,16 @@ var game = game || {};
 $(document).ready(init);
 
 function init(){
-  game.$pause         = $('#timer').on('click', game.pause);
-  game.$pop           = $('body').on('click', '.bubbles', game.popBubble);
-  game.$bubbles       = $('.bubbles');
-  game.$main          = $('main');
-  game.$score         = $("#score");
-  game.$timer         = $("#timer");
-  game.defaultSeconds = 5;
-  game.startScore     = 0;
+  game.$newHighScore   = $('#newHighScore').val('');
+  game.$pause          = $('#timer').on('click', game.pause);
+  game.$pop            = $('body').on('click', '.bubbles', game.popBubble);
+  game.$bubbles        = $('.bubbles');
+  game.$main           = $('main');
+  game.$score          = $("#score");
+  game.$timer          = $("#timer");
+  game.defaultSeconds  = 30;
+  game.numberOfBubbles = 30;
+  game.startScore      = 0;
 
   // game.rideOfTheValkyries();
   game.swanLake();
@@ -22,10 +24,16 @@ function init(){
 game.createModal = function startModal(id){
   var modal = $('[data-remodal-id='+id+']').remodal();
   modal.open();
+  $('#newHighScore').focus();
 }
 
 game.setupModalEvents = function setupModalEvent(){
   $(document).on('confirmation', '.remodal', function () {
+    game.$newHighScore   = $('#newHighScore').val();
+    if (game.$newHighScore.length > 1){
+    $('#high-scores').append('<li>' + game.$newHighScore + " " + game.score + '</li>');
+    $('#newHighScore').val('');
+  }
     game.startCountdown();
     game.startMakingBubbles();
   });
@@ -39,7 +47,7 @@ game.startMakingBubbles = function startMakingBubbles(){
     if (game.over)
 
     game.$bubbles = $('.bubbles');
-    if (game.$bubbles.length > 4) return;
+    if (game.$bubbles.length > game.numberOfBubbles) return;
     
     game.createBubble();
     $.each(game.$bubbles, game.animateBubble);
@@ -71,7 +79,8 @@ game.animateBubble = function animateBubble(i, bubble){
   if ($(bubble).attr('value') <= 0){
     var bubblePop = new Audio("sounds/bubblePop.mp3");
     bubblePop.play();
-    $(bubble).remove();
+    // $(bubble).remove();
+    $(this).remove();
     return;
   };
 
@@ -81,7 +90,7 @@ game.animateBubble = function animateBubble(i, bubble){
   
   $(bubble).animate({ top: newq[0], left: newq[1] }, speed, function(){
     if (game.$bubbles.length === 0) return;  
-    game.animateBubble(i, bubble);
+    // game.animateBubble(i, bubble);
   });
 };
 
@@ -108,7 +117,7 @@ game.calcSpeed = function calcSpeed(prev, next) {
 
 game.createBubble = function (){
   var newPosition = game.makeNewPosition();
-  $newBubble      = $('<button />', {"class": 'bubbles', 'value': 11});
+  $newBubble      = $('<button />', {"class": 'bubbles', 'value': 10});
   $newBubble.css({'top':newPosition[0]+'px', 'left':newPosition[1]+'px'}).appendTo(game.$main);
   $newBubble.html($newBubble.attr('value'))
 }
@@ -163,7 +172,6 @@ game.openCan = function openCan(){
 game.pause = function pause(){
   alert('Paused!');
 }
-
 // game.instructions = function instructions(){
 //   alert('Welcome to "Pop me all over", a game in which you have to... Well, pop bubbles! The rules are simple: pop as many bubbles as you can in 30 seconds and get listed in the high-scores section! The numbers in the bubbles are the seconds left for them to automatically pop and they are also the points you get for popping them! Pause the game clicking on the timer, if you need!')
 // }

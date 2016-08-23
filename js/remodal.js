@@ -76,9 +76,9 @@
   var DEFAULTS = $.extend({
     hashTracking: true,
     closeOnConfirm: true,
-    closeOnCancel: true,
-    closeOnEscape: true,
-    closeOnOutsideClick: true,
+    closeOnCancel: false,
+    closeOnEscape: false,
+    closeOnOutsideClick: false,
     modifier: '',
     appendTo: null
   }, global.REMODAL_GLOBALS && global.REMODAL_GLOBALS.DEFAULTS);
@@ -563,6 +563,18 @@
     });
 
     // Add the event listener for the confirm button
+    remodal.$wrapper.on('keydown', '[data-' + PLUGIN_NAME + '-action="confirm"]', function(e){
+      if (e.keyCode == 13) {
+        e.preventDefault();
+        console.log('here i am')
+        remodal.$modal.trigger(STATE_CHANGE_REASONS.CONFIRMATION);
+
+              if (remodal.settings.closeOnConfirm) {
+                remodal.close(STATE_CHANGE_REASONS.CONFIRMATION);
+              }
+      }
+    })
+
     remodal.$wrapper.on('click.' + NAMESPACE, '[data-' + PLUGIN_NAME + '-action="confirm"]', function(e) {
       e.preventDefault();
 
