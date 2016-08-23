@@ -5,7 +5,7 @@ $(document).ready(init);
 function init(){
   game.$newHighScore   = $('#newHighScore').val('');
   game.$pause          = $('#timer').on('click', game.pause);
-  game.$pop            = $('body').on('click', '.bubbles', game.popBubble);
+  game.$pop            = $('body').on('mouseover', '.bubbles', game.popBubble);
   game.$bubbles        = $('.bubbles');
   game.$main           = $('main');
   game.$score          = $("#score");

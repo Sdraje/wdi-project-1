@@ -566,7 +566,6 @@
     remodal.$wrapper.on('keydown', '[data-' + PLUGIN_NAME + '-action="confirm"]', function(e){
       if (e.keyCode == 13) {
         e.preventDefault();
-        console.log('here i am')
         remodal.$modal.trigger(STATE_CHANGE_REASONS.CONFIRMATION);
 
               if (remodal.settings.closeOnConfirm) {

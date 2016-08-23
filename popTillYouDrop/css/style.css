@@ -1,5 +1,5 @@
 * {
-  cursor: pointer;
+  cursor: url(../images/pin.png), pointer;
 }
 
 body {
@@ -21,6 +21,10 @@ header {
 }
 
 p {
+  font-size: 30px;
+}
+
+li {
   font-size: 25px;
 }
 
@@ -41,7 +45,7 @@ textarea {
   height: 50px;
   vertical-align: center;
   text-align: center;
-  font-size: 25px;
+  font-size: 30px;
   line-height: 50px;
   text-shadow: 
   -1px -1px 0 #D27392,
@@ -64,7 +68,7 @@ button.bubbles {
 }
 
 #timer {
-  font-size: 25px;
+  font-size: 30px;
   z-index: 10;
   float: right;
   margin-right: 20px;
@@ -79,6 +83,7 @@ button.bubbles {
 
 #alfredo {
   margin-top: 15px;
+  font-size: 15px;
 }
 
 body.noselect {
