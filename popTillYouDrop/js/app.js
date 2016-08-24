@@ -16,7 +16,6 @@ function init(){
 
   // game.rideOfTheValkyries();
   game.swanLake();
-  game.openCan();
   game.createModal("startModal");
   game.setupModalEvents();
 };
@@ -31,9 +30,10 @@ game.setupModalEvents = function setupModalEvent(){
   $(document).on('confirmation', '.remodal', function () {
     game.$newHighScore   = $('#newHighScore').val();
     if (game.$newHighScore.length > 1){
-    $('#high-scores').append('<li>' + game.$newHighScore + " " + game.score + '</li>');
-    $('#newHighScore').val('');
-  }
+      $('#high-scores').append('<li>' + game.$newHighScore + " " + game.score + '</li>');
+      $('#newHighScore').val('');
+    }
+    game.openCan();
     game.startCountdown();
     game.startMakingBubbles();
   });
@@ -46,7 +46,7 @@ game.startMakingBubbles = function startMakingBubbles(){
   game.bubbleInterval = setInterval(function(){
     if (game.over)
 
-    game.$bubbles = $('.bubbles');
+      game.$bubbles = $('.bubbles');
     if (game.$bubbles.length > game.numberOfBubbles) return;
     
     game.createBubble();
@@ -72,7 +72,7 @@ game.popBubble = function popBubble () {
 /*
  * Animating the movement of the div
  */
-game.animateBubble = function animateBubble(i, bubble){
+ game.animateBubble = function animateBubble(i, bubble){
   $(bubble).attr('value', $(bubble).attr('value')-1);
   $(bubble).html($(bubble).attr('value'));
 
@@ -95,7 +95,7 @@ game.animateBubble = function animateBubble(i, bubble){
 /*
  * Create a new start position to place a bubble
  */
-game.makeNewPosition = function makeNewPosition(){
+ game.makeNewPosition = function makeNewPosition(){
   var h  = game.$main.height() - 50;
   var w  = game.$main.width() - 50;
   var nh = Math.floor(Math.random() * h);
@@ -140,7 +140,7 @@ game.over = function () {
   game.stopMakingBubbles();
   game.$main.empty();
   game.createModal("endModal");
-  }
+}
 
 game.swanLake = function swanLake(){
   var swanLake = new Audio ("sounds/swanLake.mp3");
