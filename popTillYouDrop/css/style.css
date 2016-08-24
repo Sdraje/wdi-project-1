@@ -2,6 +2,11 @@
   cursor: url(../images/pingreen.png), pointer;
 }
 
+h1 {
+  font-size: 25px;
+  text-decoration: underline;
+}
+
 body {
   font-family: 'Averia Sans Libre', bold;
   background-image: url("../images/sodaBubbles.gif");
@@ -14,8 +19,9 @@ body {
   1px 1px 0 #D27392;  
 }
 
-header {
+header #gameName {
   text-align: center;
+  text-decoration: none;
   font-size: 80px;
   margin-bottom: 15px;
 }
@@ -41,6 +47,7 @@ footer {
 }
 
 textarea {
+  margin-top: 5px;
   width: 200px;
   height: 50px;
   vertical-align: center;
