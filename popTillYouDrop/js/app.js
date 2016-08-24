@@ -79,7 +79,6 @@ game.animateBubble = function animateBubble(i, bubble){
   if ($(bubble).attr('value') <= 0){
     var bubblePop = new Audio("sounds/bubblePop.mp3");
     bubblePop.play();
-    // $(bubble).remove();
     $(this).remove();
     return;
   };
@@ -90,7 +89,6 @@ game.animateBubble = function animateBubble(i, bubble){
   
   $(bubble).animate({ top: newq[0], left: newq[1] }, speed, function(){
     if (game.$bubbles.length === 0) return;  
-    // game.animateBubble(i, bubble);
   });
 };
 
@@ -142,9 +140,7 @@ game.over = function () {
   game.stopMakingBubbles();
   game.$main.empty();
   game.createModal("endModal");
-  // var person = prompt ('Game over! Please enter your name:')
-  // $('#high-scores').append('<li>' + person + " " + game.score + '</li>')
-}
+  }
 
 game.swanLake = function swanLake(){
   var swanLake = new Audio ("sounds/swanLake.mp3");
@@ -155,14 +151,14 @@ game.swanLake = function swanLake(){
   swanLake.play();
 }
 
-game.rideOfTheValkyries = function rideOfTheValkyries(){
-  var rideOfTheValkyries = new Audio ('sounds/rideOfTheValkyries.mp3');
-  rideOfTheValkyries.addEventListener('ended', function(){
-    this.currentTime = 0;
-    this.play();
-  }, false);
-  rideOfTheValkyries.play();
-}
+// game.rideOfTheValkyries = function rideOfTheValkyries(){
+//   var rideOfTheValkyries = new Audio ('sounds/rideOfTheValkyries.mp3');
+//   rideOfTheValkyries.addEventListener('ended', function(){
+//     this.currentTime = 0;
+//     this.play();
+//   }, false);
+//   rideOfTheValkyries.play();
+// }
 
 game.openCan = function openCan(){
   var canOpen = new Audio ("sounds/canOpen.mp3");
@@ -172,6 +168,3 @@ game.openCan = function openCan(){
 game.pause = function pause(){
   alert('Paused!');
 }
-// game.instructions = function instructions(){
-//   alert('Welcome to "Pop me all over", a game in which you have to... Well, pop bubbles! The rules are simple: pop as many bubbles as you can in 30 seconds and get listed in the high-scores section! The numbers in the bubbles are the seconds left for them to automatically pop and they are also the points you get for popping them! Pause the game clicking on the timer, if you need!')
-// }

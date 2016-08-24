@@ -4,7 +4,7 @@
 
 A classic time-killer in which your only challenge is to pop all the bubbles you can in the given time!
 
-#####[Play it here!](https://popmeallover.herokuapp.com)
+#####[Play it here!](https://poptillyoudrop.herokuapp.com)
 
 #####Rules
 Do I have to explain again? Just pop the damn bubbles! You're running out of time! And don't forget to insert your name, to challenge your mates for the highest score in the leaderboard!

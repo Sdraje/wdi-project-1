@@ -572,7 +572,7 @@
                 remodal.close(STATE_CHANGE_REASONS.CONFIRMATION);
               }
       }
-    })
+    });
 
     remodal.$wrapper.on('click.' + NAMESPACE, '[data-' + PLUGIN_NAME + '-action="confirm"]', function(e) {
       e.preventDefault();
