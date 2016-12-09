@@ -1,5 +1,5 @@
 * {
-  cursor: url(../images/pingreen.png), pointer;
+  /*cursor: url(../images/pingreen.png), pointer;*/
 }
 
 h1 {
@@ -12,11 +12,11 @@ body {
   background-image: url("../images/sodaBubbles.gif");
   background-size: cover;
   background-repeat: no-repeat;
-  text-shadow: 
+  text-shadow:
   -1px -1px 0 #D27392,
   1px -1px 0 #D27392,
   -1px 1px 0 #D27392,
-  1px 1px 0 #D27392;  
+  1px 1px 0 #D27392;
 }
 
 header #gameName {
@@ -54,7 +54,7 @@ textarea {
   text-align: center;
   font-size: 30px;
   line-height: 50px;
-  text-shadow: 
+  text-shadow:
   -1px -1px 0 #D27392,
   1px -1px 0 #D27392,
   -1px 1px 0 #D27392,
